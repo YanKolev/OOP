@@ -120,3 +120,54 @@ console.log(matilda, jack);
 
 console.log(jonas instanceof Person);
 
+//constructor function is not a JS feature but simply a patter widely used in the industry
+
+
+
+
+//              === PROTOTYPES ===
+
+
+/* first each and every function in JS automatically has a property called prototype, 
+that includes the construction functions. Every object that is created by a certain constructor function
+will have access to all methods and properties we define on the constructors's prototype property
+*/
+
+console.log(Person.prototype);
+
+// we can use this method on the jonas object, even though it is not really on the object itself
+// we have access to it beause of prototypal inheritance
+
+Person.prototype.calcAge = function(){
+    console.log(2037- this.birthYear);
+  };
+
+jonas.calcAge();
+matilda.calcAge();
+
+//we can re-use this function, instead of putting in the constructor function
+//creating unnecessary copies for every time that we call it.
+// this keyword in each of them is set to the object that is calling the method.(either- jonas or matilda)
+
+/* this is basic prototypal inheritance, since they are connected to Person, they have access to the methods above
+inside the prototype property.
+Any object has always access to the methods and properties from its prototype.
+*/
+
+console.log(jonas.__proto__);
+console.log(jonas.__proto__ === Person.prototype);
+
+/* Person.prototype is NOT THE PROTOTYPE OF PERSON. INSTEAD IS WHAT IS GONNA BE USED AS THE PROTYPE OF ALL THE OBJECTS 
+THAT ARE CREATED WITH THE PERSON CONSTRUCTOR FUNCTION */
+
+console.log(Person.prototype.isPrototypeOf(jonas)); // TRUE
+// this proves that Person.prototype is the prototype of jonas 
+
+console.log(Person.prototype.isPrototypeOf(Person)); // FALSE
+
+//we can set properties on the prototype
+Person.prototype.species = 'Homo Sapiens'
+console.log(jonas.species, matilda.species);
+
+console.log(jonas.hasOwnProperty('firstName'))
+console.log(jonas.hasOwnProperty('species'))
