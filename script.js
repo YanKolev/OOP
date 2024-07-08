@@ -82,3 +82,41 @@ Therefore all arrays have access to the map method.
   -Easises most straightforward way of linkng an object to a prototype object.
 
 */
+
+//Constructor functions-> to build an object using a funtion, its completely normal function
+//the only differene between regular function and constructor function is that we use the new operator
+
+// in OOP constructor functions always start with capital letter (Array and Map follow that convention as well)
+// Arrow function will not work as a function constructor (because it doesnt have its own THIS keyword and we need that)
+
+const Person = function (firstName, birthYear) {
+  //Instance properties
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+
+
+  //Never create a method inside a constructor function!!!! 
+  //this.calcAge = function(){
+  //  console.log(2037- this.birthYear)
+  //}
+}
+
+const jonas = new Person('Jonas', 1991)
+console.log(jonas);
+
+//When using new operator, 4 steps happen
+// 1. New empty object {} is created 
+// 2. function is called, and in this function call this keyword will be set to the newly created object
+// this = {}
+// 3.Newly created object is linked to a prototype 
+// 4. Function automatically returns the empty object {} from the begining, but at this point the project no longer needs to be empty
+
+const matilda = new Person ('Matilda', 2017);
+const jack = new Person ('Jack', 1975);
+console.log(matilda, jack);
+
+
+//constructor functions have been used in JS to simulate classes, so we can say that jonas is instance of Person and check it outerHeight
+
+console.log(jonas instanceof Person);
+
