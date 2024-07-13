@@ -313,3 +313,52 @@ Person.hey = function(){
 }
 
 Person.hey(); //this is not inherited, its not in the protory, so the OBJECT CAN NOT INHERIT IT
+
+
+// Object. Create
+
+// works differently than classes or constructors, there is still the idea of prototypal inheritance, 
+// there are no prototype properties, no constructors functions and no new operator
+//manually set the prototype of an object to any other object that we want
+
+
+//prototype of all the person objects 
+
+const PersonProto = {
+  calcAge(){
+    console.log(2037-this.birthYear)
+  },
+
+  //looks like a constructor function but its not
+  init(firstName, birthYear){
+    this.firstName = firstName; // this will point to sarah, but it does so as we esplicitly called it to do so
+    this.birthYear = birthYear;
+  }
+
+}
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+
+steven.calcAge();
+
+/*
+setting the prototype to any object that we want.
+both objects are linked to the proto property, 
+then in works like a function constructors/ classes 
+BIG DIFFERENCE IS- > NO CONSTRUCTOR FUNCTION OR PROTOTYPE PROPERTY TO ACHIEVE exact same this as constructor functins
+Least used way in real world to have prototypal inheritance. 
+
+*/
+
+console.log(steven.__proto__=== PersonProto);
+
+
+const sarah = Object.create(PersonProto);
+
+sarah.init('Sarah', 1979);
+sarah.calcAge();
+// Object.create= creates a new object and the prototype of that object will be the object taht we passed in.!!!
+
