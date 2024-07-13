@@ -239,12 +239,22 @@ class PersonCl {
   get fullName(){
     return this._fullName;
   }
+
+  //Static Method
+  static hey(){
+    console.log('Hey there!');
+    console.log(this);
+  }
+
 }
 
 
 const jessica = new PersonCL('Jessica Davis', 1996)
 console.log(jessica);
 jessica.calcAge();
+
+
+
 
 console.log(jessica.__proto__ === PersonCL.prototype);
 
@@ -259,7 +269,7 @@ jessica.greet();
 //2. Classes are first-class citizens
 //3. Classes are executed in strict mode
 
-
+PersonCL.hey(); // NOT AVAILABLE ON INSTANCES, CAN BE USED AS HELPERS. 
 
 // SETTERS AND GETTERS
 
@@ -288,3 +298,18 @@ console.log(account.latest);// when we want to read somethng as a property but w
 account.latest = 50;
 console.log(acccount.movements);
 
+
+//Static Methods
+
+// Good understanding of Static methods are the build in methods- like Array.from 
+// WHICH converts any array-like structure like real array. 
+// you need something that returns a node list. From is NOT A FUNCTION, ITS ATTACHED TO THE ENTIRE CONSTRUCTOR, SO THE ARRAY CONSTRUCTOR AND NOT TO THE ARRAY PROPERTY OF THE CONSTRUCTOR. 
+// ITS ATTACHED TO THE CONSTRUCTOR ITSELF.
+
+//to add a static method 
+Person.hey = function(){
+  console.log('Hey there!')
+  console.log(this);
+}
+
+Person.hey(); //this is not inherited, its not in the protory, so the OBJECT CAN NOT INHERIT IT
