@@ -201,3 +201,47 @@ console.log(arr.unique());
 
 const h1 = document.querySelector ('h1');
 console.dir(x=> x + 1);
+
+
+
+// ES6 CKASSES 
+
+
+//class expression 
+//const PersonCL = class {
+
+//}
+
+//class declaration
+
+
+//Here you can wrie the methods inside the class but OUTSIDE OF THE CONSTRUCTOR
+class PersonCl {
+  constructor(firstName, birthYear){
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  //Methods ill be added to .prototype property
+  calcAge(){
+    console.log(2037-this.birthYear);
+  } 
+}
+
+
+const jessica = new PersonCL('Jessica', 1996)
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__ === PersonCL.prototype);
+
+PersonCL.prototype.greet = function(){
+  console.log(`Hey ${this.firstName}`);
+
+}
+jessica.greet();
+// The class hides the prototypal inheritance in JS 
+
+//1. Classes are NOT hoisted (function declarations are hoisted)
+//2. Classes are first-class citizens
+//3. Classes are executed in strict mode
