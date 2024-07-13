@@ -217,19 +217,32 @@ console.dir(x=> x + 1);
 
 //Here you can wrie the methods inside the class but OUTSIDE OF THE CONSTRUCTOR
 class PersonCl {
-  constructor(firstName, birthYear){
-    this.firstName = firstName;
+  constructor(fullName, birthYear){
+    this.fullNameName = fullName;
     this.birthYear = birthYear;
   }
 
   //Methods ill be added to .prototype property
   calcAge(){
     console.log(2037-this.birthYear);
-  } 
+  }
+
+  get age(){
+    return 2037- this.birthYear;
+  }
+    // setting a name property that already exist
+  set fullName(name){
+    if (name.includes(' ')) this._fullName = name;
+    else alert (`${name} is not full name!`)
+  }
+
+  get fullName(){
+    return this._fullName;
+  }
 }
 
 
-const jessica = new PersonCL('Jessica', 1996)
+const jessica = new PersonCL('Jessica Davis', 1996)
 console.log(jessica);
 jessica.calcAge();
 
@@ -245,3 +258,33 @@ jessica.greet();
 //1. Classes are NOT hoisted (function declarations are hoisted)
 //2. Classes are first-class citizens
 //3. Classes are executed in strict mode
+
+
+
+// SETTERS AND GETTERS
+
+// every object in JS can have setter and getter properties-> called assecors properties
+
+const walter = new PersonCL('Walter White', 1965)
+
+const accont = {
+  owner: 'jonas',
+  movements : [200, 530, 120, 300],
+
+
+  // to make it getter u need keyword- get / set
+
+   get latest(){
+    return this.movements.slice(-1).pop();
+   },
+
+   set latest(mov){
+    this.movements.push(mov);
+   },
+}
+
+console.log(account.latest);// when we want to read somethng as a property but we need to do some calculations
+
+account.latest = 50;
+console.log(acccount.movements);
+
