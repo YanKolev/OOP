@@ -29,4 +29,18 @@ class CarCL  {
         console.log(`${this.make} is going at ${this.speed} km/h`)
     }
 
+    get speedUS (){
+        return this.speed / 1.6;
+    }
+
+    set speedUS(speed){
+        this.speed = speed *1,6;
+    }
 }
+
+const ford = new CarCL ('Ford', 120)
+console.log(ford.speedUS)
+ford.acceerate();
+ford.break();
+ford.speedUS = 50;
+console.log(ford);
