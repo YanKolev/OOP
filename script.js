@@ -362,3 +362,44 @@ sarah.init('Sarah', 1979);
 sarah.calcAge();
 // Object.create= creates a new object and the prototype of that object will be the object taht we passed in.!!!
 
+
+
+
+
+//   Inheritance Between "Classes": Constructor Functions 
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function (){
+  console.log(2037- this.birthYear)
+};
+
+//building a constructor function for the student
+
+const Student = function (firstName, birthYear, course){
+  Person.call (this, firstName, birthYear); //call so we can manually call the this keyword and both the properties.
+  this.course = course;
+
+}
+
+//Linking prototypes
+Student.prototype = Object.create(Person.prototype) // student prototype is now an Object that inherits from Person.prototype.
+
+//Student.prototype = Person.prototype / completely wrong a prototype chain-> making them EXACT SAME- we need the Object.create TO INHERIT
+
+Student.prototype.introduce = function (){
+  console.log(`My name is ${this.firstName} and I study ${this.course}`)
+};
+
+
+const mike = new Student ('Mike', 2020, 'Computer Science');
+mike.introduce();
+mike.calcAge();// we are making a method lookup-> its finding it in person.protype, WHOLE REASON WE SET UP THE CHAIN LIKE THAT, We can call a method on the person. prototype.
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+Student.prototype.constructor = Student;
