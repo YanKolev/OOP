@@ -16,3 +16,35 @@ Test data:
 §
 Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
 */
+
+// !!!!!!!! REMEMBER: IN REGULAR FUNCTION CALL THIS KEYWORD IS SET TO UNDEFINED
+
+//parent Car
+const Car = function (make, speed) {
+       this.make = make;
+       this.speed = speed;
+}
+//constructor function for child class 
+const EV = function (make,speed,charge){
+    Car.call (this, make, speed);
+    this.charge = charge;
+}
+
+//linking prototypes 
+EV.prototype = Object.create(Car.prototype);
+
+//charge to method?
+EV.prototype.chargeBattery = function (chargeTO){
+    this.charge = chargeTO; // EV.charge = chargeTO??
+  };
+
+EV.prototype.accelerate = function(){
+    this.speed += 20;
+    this.charge -= 1;
+    console.log(`${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge} %`)
+}
+ 
+const tesla = new EV ('Tesla', 120, 23);
+console.log(tesla);
+tesla.accelerate();
+
