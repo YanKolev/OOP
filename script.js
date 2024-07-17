@@ -478,3 +478,64 @@ const jay = Object.create(StudentProto);
 jay.init('Jay', 2010, 'Computer Science');
 jay.introduce();
 jay.calcAge();
+
+
+// --------------- More Classes ------------------
+
+
+class Account {
+  constructor(owner, currency, pin){
+    this.owner = owner;
+    this.currency =currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks opening an account, ${owner}!`)
+  }
+
+  //Public interface of our objects.
+  deposit(val) {
+    this.movements.push(val)
+  }
+
+  withdraw(val){
+    this.deposit(-val) //here we abstracted the minus, so the user should not care about it when withdrawing funds
+  }
+
+  approveLoan(val){
+    return true;
+  }
+
+
+  requestLoan(val){
+    if (this.approveLoan(val)){
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111)
+
+
+// we want to start always with an empty Array to pass movements and locale we need to get from navigator. language
+
+
+
+//This is not a good way to display Important ptoperties as movements, it is BETTER 
+// TO CREATE METHODS THAT INTERACT with the properties
+
+//to make deposits and withdrawals we can make the following: 
+//acc1.movements.push(250); // when we are displaying deposit we are pushing a value
+//acc1.movements.push(-150); //when we are displaying withdrawal we can push a negative value
+
+acc1.deposit(250);
+acc1.withdraw(150);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000); // this is an internal method that only the request load should be able to use.(DATA ENCAPSULATION/PRIVACY IS NEEDED)
+
+console.log(acc1)
+console.log(acc1.pin); //PIN SHOULD NOT BE ACCESIBLE FROM OUTSIDE, SAME GOES FOR METHODS  
+
