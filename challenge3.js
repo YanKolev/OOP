@@ -21,9 +21,20 @@ Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
 
 //parent Car
 const Car = function (make, speed) {
-       this.make = make;
-       this.speed = speed;
+    this.make = make;
+    this.speed = speed;
+};
+
+Car.prototype.acceerate = function(){
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`)
 }
+
+Car.prototype.break = function(){
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`)
+}
+
 //constructor function for child class 
 const EV = function (make,speed,charge){
     Car.call (this, make, speed);
@@ -40,11 +51,16 @@ EV.prototype.chargeBattery = function (chargeTO){
 
 EV.prototype.accelerate = function(){
     this.speed += 20;
-    this.charge -= 1;
+    this.charge -= 1; // this.charge--;- another version 
     console.log(`${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge} %`)
 }
  
 const tesla = new EV ('Tesla', 120, 23);
 console.log(tesla);
+tesla.accelerate();
+tesla.chargeBattery(90);
+console.log(tesla);
+console.log(tesla);
+tesla.break();
 tesla.accelerate();
 

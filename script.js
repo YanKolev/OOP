@@ -37,7 +37,7 @@ Polymorphism
 --Inheritance: Making all properties and methods of a certain class available to a child class, forming a hierarchical 
   relationship between classes. This allow us to reuse common logic and to model real-world relationships.
 
---Polymorphism: A hild class can overwrite a method it inherited from a parent class.
+--Polymorphism: A child class can overwrite a method it inherited from a parent class.
 
 */
 
