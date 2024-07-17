@@ -484,45 +484,60 @@ jay.calcAge();
 
 
 class Account {
+  //Public fields (instances)
+  locale = navigator.language;
+  
+
+  //Private fields (instances) -> by adding the hash symbol #
+  #movements = []; // when we add # we are making them private
+  #pin;
+
+
+
   constructor(owner, currency, pin){
     this.owner = owner;
     this.currency =currency;
-    this.pin = _pin;
+    this.#pin = pin;
     //Protected property
-    this._movements = [];
-    this.locale = navigator.language;
+    //this._movements = [];
+    //this.locale = navigator.language;
 
     console.log(`Thanks opening an account, ${owner}!`)
   }
-
+  
+  // Public methods
   //Public interface of our objects.
-  
-  
   //adding a getter for movements- u can get them, but can not overwrite them
 
   getMovements(){
-    return this._movements
+    return this.#movements
   }
 
 
   deposit(val) {
-    this._movements.push(val)
+    this.#movements.push(val);
+    return this;
   }
 
   withdraw(val){
     this.deposit(-val) //here we abstracted the minus, so the user should not care about it when withdrawing funds
+    return this;
   }
 
-  _approveLoan(val){
-    return true;
-  }
+
 
 
   requestLoan(val){
     if (this._approveLoan(val)){
       this.deposit(val);
       console.log(`Loan Approved`);
+      return this; //with this we will mae them chainable.
     }
+  }
+
+  //Private methods- used to hide the implementatin from the outside- with #( but no browser supports it)
+  _approveLoan(val){ // lets keep the underscore convention to keep it working
+    return true;
   }
 
 }
@@ -567,3 +582,21 @@ console.log(acc1.pin); //PIN SHOULD NOT BE ACCESIBLE FROM OUTSIDE, SAME GOES FOR
 //movements array from previous lecture/- needs protection for now we will add underscore infront of the property name
 //its just a convention so we call it Protected property. 
 // IF IT HAS UNDERSCORE IT SHOULD NOT BE TOUCHED OUTSIDE OF THE CLASS WITH ANY HARDCODING ETC 
+
+
+// -------------  Encapsulation: Private Class Fields and Methods ---------
+
+//Public fields
+//Private fields
+//Public fields
+//Private fields
+
+//console.log(acc1.#movements); IT will throw an error Private class must be declated.
+
+//There is also Static versions -> adding static and method name (usually fo helper function- available only on the class itself)
+
+
+// ------------- Chaining Methods -------------
+
+//we can chain methods of ur class. all we have to do is to return the object itself at the end of a method that it want to be chainable
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000) //-> it will not work, so we need to add return this to deposit, withdrawal and request loan
