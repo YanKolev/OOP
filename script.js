@@ -440,3 +440,41 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl ('Martha Jones', 2012, 'Computer Science')
 martha.introduce();
 martha.calcAge();
+
+
+
+// ------------ Inheritance Between "Classes": Object.create -------------------
+
+const PersonProto2 = {
+  calcAge(){
+    console.log(2037- this.birthYear);
+  },
+
+  init(firstName, birthYear){
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+}
+
+const steven2 = Object.create(PersonProto2); // now we will add another prototype in the chain
+// between the personProto and the object -> to make Student inherit directly from person
+
+//object that is the prototype of students
+
+const StudentProto = Object.create(PersonProto2)
+StudentProto.init = function(firstName,birthYear,course) {
+  PersonProto2.init.call(this,firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function() {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`)
+}
+
+//now we can use studen proto to create new students - jay object 
+const jay = Object.create(StudentProto);
+// Jay inherints from StudentProto which inherits from Person proto thus creating a protoype chain
+
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge();
