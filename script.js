@@ -487,29 +487,39 @@ class Account {
   constructor(owner, currency, pin){
     this.owner = owner;
     this.currency =currency;
-    this.pin = pin;
-    this.movements = [];
+    this.pin = _pin;
+    //Protected property
+    this._movements = [];
     this.locale = navigator.language;
 
     console.log(`Thanks opening an account, ${owner}!`)
   }
 
   //Public interface of our objects.
+  
+  
+  //adding a getter for movements- u can get them, but can not overwrite them
+
+  getMovements(){
+    return this._movements
+  }
+
+
   deposit(val) {
-    this.movements.push(val)
+    this._movements.push(val)
   }
 
   withdraw(val){
     this.deposit(-val) //here we abstracted the minus, so the user should not care about it when withdrawing funds
   }
 
-  approveLoan(val){
+  _approveLoan(val){
     return true;
   }
 
 
   requestLoan(val){
-    if (this.approveLoan(val)){
+    if (this._approveLoan(val)){
       this.deposit(val);
       console.log(`Loan Approved`);
     }
@@ -536,6 +546,24 @@ acc1.withdraw(150);
 acc1.requestLoan(1000);
 acc1.approveLoan(1000); // this is an internal method that only the request load should be able to use.(DATA ENCAPSULATION/PRIVACY IS NEEDED)
 
+console.log(acc1.getMovements());
+
+
 console.log(acc1)
 console.log(acc1.pin); //PIN SHOULD NOT BE ACCESIBLE FROM OUTSIDE, SAME GOES FOR METHODS  
 
+
+
+// ------------- Encapsulation: Protected Properties and Methods ---------------
+
+// Encapsulation means that some of the methods and properties are kept private inside of the class, 
+//and not accessible from outside of the class, The rest of the methods are exposed to the public interface. 
+
+//2 big reasons that we need encapsulation- to prevent code from outside of a class to accidentally manipulate date in our class
+// NO manual input properties,
+//2nd reason- when u expose a small interface, then we can change the internal method with more confidence
+//the external code does not rely that much and wont break when making internal changes
+
+//movements array from previous lecture/- needs protection for now we will add underscore infront of the property name
+//its just a convention so we call it Protected property. 
+// IF IT HAS UNDERSCORE IT SHOULD NOT BE TOUCHED OUTSIDE OF THE CLASS WITH ANY HARDCODING ETC 
