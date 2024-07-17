@@ -249,16 +249,16 @@ class PersonCl {
 }
 
 
-const jessica = new PersonCL('Jessica Davis', 1996)
+const jessica = new PersonCl('Jessica Davis', 1996)
 console.log(jessica);
 jessica.calcAge();
 
 
 
 
-console.log(jessica.__proto__ === PersonCL.prototype);
+console.log(jessica.__proto__ === PersonCl.prototype);
 
-PersonCL.prototype.greet = function(){
+PersonCl.prototype.greet = function(){
   console.log(`Hey ${this.firstName}`);
 
 }
@@ -269,13 +269,13 @@ jessica.greet();
 //2. Classes are first-class citizens
 //3. Classes are executed in strict mode
 
-PersonCL.hey(); // NOT AVAILABLE ON INSTANCES, CAN BE USED AS HELPERS. 
+PersonCl.hey(); // NOT AVAILABLE ON INSTANCES, CAN BE USED AS HELPERS. 
 
 // SETTERS AND GETTERS
 
 // every object in JS can have setter and getter properties-> called assecors properties
 
-const walter = new PersonCL('Walter White', 1965)
+const walter = new PersonCl('Walter White', 1965)
 
 const accont = {
   owner: 'jonas',
@@ -293,10 +293,10 @@ const accont = {
    },
 }
 
-console.log(account.latest);// when we want to read somethng as a property but we need to do some calculations
+//console.log(account.latest);// when we want to read somethng as a property but we need to do some calculations
 
-account.latest = 50;
-console.log(acccount.movements);
+//account.latest = 50;
+//console.log(acccount.movements);
 
 
 //Static Methods
@@ -368,6 +368,7 @@ sarah.calcAge();
 
 //   Inheritance Between "Classes": Constructor Functions 
 
+/*
 const Person = function (firstName, birthYear) {
   this.firstName = firstName;
   this.birthYear = birthYear;
@@ -403,3 +404,39 @@ console.log(mike.__proto__);
 console.log(mike.__proto__.__proto__);
 
 Student.prototype.constructor = Student;
+*/
+
+
+// -------- Inheritance Between "Classes": ES6 Classes ---------
+
+
+
+//Using person CL class and making a new class
+
+//To implement inheritance between ES6 classes we only need 2 condtions- we need the extend keyword and a superfunction 
+
+// Since we are using the exdends keyword, the classes get linked behind the scenes, and we do not need to call the 
+// class like before (ex- PersonCL. call)-> We need to call SUPER FUNCTION
+// and the super is the CONSTRUCTOR FUNCTION OF THE PARENT CLASS
+
+
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course){
+    //Always needs to happen first-> the call to the superfunction as its responsible for the this keyword
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge(){
+    console.log(`I'm ${2037-this.birthYear} years old, but as a student I feel more like ${2037-this.birthYear + 10}`);
+  }
+
+}
+
+const martha = new StudentCl ('Martha Jones', 2012, 'Computer Science')
+martha.introduce();
+martha.calcAge();
