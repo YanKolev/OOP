@@ -600,3 +600,5 @@ console.log(acc1.pin); //PIN SHOULD NOT BE ACCESIBLE FROM OUTSIDE, SAME GOES FOR
 
 //we can chain methods of ur class. all we have to do is to return the object itself at the end of a method that it want to be chainable
 acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000) //-> it will not work, so we need to add return this to deposit, withdrawal and request loan
+
+
